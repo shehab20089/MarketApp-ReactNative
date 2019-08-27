@@ -20,9 +20,9 @@ export default class Categories extends Component {
     super(props);
     this.state = {
       images: [
+        'https://images.freekaamaal.com/post_images/1547618037.png',
         'https://www.myfavouritemagazines.co.uk/out/pictures/landingpageimages/offers-page2.jpg',
         'https://poseidonhotel.com.gr/uploads/nr_photos/offers_3433.jpg',
-        'https://images.freekaamaal.com/post_images/1547618037.png',
       ],
       CategorieItems: [],
     };
@@ -64,7 +64,6 @@ export default class Categories extends Component {
         <Header
           leftComponent={{icon: 'menu', color: 'black'}}
           containerStyle={styles.headerContainer}
-          centerComponent={{text: 'MY TITLE', style: {color: 'black'}}}
           rightComponent={() => {
             return (
               <View
@@ -74,7 +73,11 @@ export default class Categories extends Component {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Icon name="search" color="black" />
+                <Icon
+                  name="search"
+                  color="black"
+                  containerStyle={{margin: 10}}
+                />
                 <Icon name="shopping-cart" color="black" />
               </View>
             );
@@ -135,9 +138,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: 'white',
     //to fix the react native elemntes lib header bug in android
-    height: Platform.select({
-      android: 56,
-      default: 44,
-    }),
+    marginTop: Platform.OS === 'ios' ? 0 : -30,
   },
 });

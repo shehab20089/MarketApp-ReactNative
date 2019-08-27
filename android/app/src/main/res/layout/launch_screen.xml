@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/redish"
+        android:weightSum="100">
+<RelativeLayout
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+>
+  <ImageView 
+    android:src="@drawable/launch_screen"
+    android:layout_width="80dp"
+    android:id="@+id/name"
+    android:layout_height="80dp"
+      android:layout_centerInParent="true"
+        android:gravity="center"
+  
+  >
+  
+  </ImageView>
+   <ProgressBar
+      android:id="@+id/indeterminateBar"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+        android:layout_below="@id/name"
+      android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+
+      />
+</RelativeLayout>
+    </LinearLayout>

@@ -28,6 +28,7 @@ const style = StyleSheet.create({
   itemContainer: {padding: 2},
   TextStyle: {
     fontSize: 18,
+    fontWeight: 'bold',
     color: 'white',
   },
 });

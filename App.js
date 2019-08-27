@@ -1,5 +1,4 @@
 import React, {Fragment, Component} from 'react';
-import Categories from './app/categories';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
 
 import SplashScreen from 'react-native-splash-screen';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import AppContainer from './app/categories';
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.showRealApp) return <Categories />;
+    if (this.state.showRealApp) return <AppContainer />;
     else {
       return (
         <AppIntroSlider

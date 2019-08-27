@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
   Text,
+  Button,
 } from 'react-native';
 import {Header, Icon} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -13,9 +14,33 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import Categorie from './models/Categorie';
 import CategorieItem from './CategorieItem';
 import Product from './models/Product';
+import Products from './products';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 
-const data = ['a', 'b', 'c', 'd', 'e'];
-export default class Categories extends Component {
+class Categories extends React.Component {
+  static navigationOptions = {
+    headerTitle: (
+      <Icon name="menu" color="black" containerStyle={{margin: 10}} />
+    ),
+    headerRight: (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          // backgroundColor: 'red',
+          margin: 1,
+        }}>
+        <Icon name="search" color="black" containerStyle={{margin: 6}} />
+        <Icon
+          name="shopping-cart"
+          color="black"
+          containerStyle={{margin: 10}}
+        />
+      </View>
+    ),
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -34,23 +59,6 @@ export default class Categories extends Component {
         return result.json();
       })
       .then(data => {
-        // const newData = data.map(item => {
-        //   return new Categorie(
-        //     item.id,
-        //     item.name,
-        //     item.category_img,
-        //     item.products.map(proditem => {
-        //       return new Product(
-        //         proditem.id,
-        //         proditem.name,
-        //         proditem.weight,
-        //         proditem.price,
-        //         proditem.product_img,
-        //       );
-        //     }),
-        //   );
-        // });
-        // console.log(newData);
         this.setState({CategorieItems: data});
 
         // console.log(data);
@@ -61,28 +69,6 @@ export default class Categories extends Component {
   render() {
     return (
       <Fragment>
-        <Header
-          leftComponent={{icon: 'menu', color: 'black'}}
-          containerStyle={styles.headerContainer}
-          rightComponent={() => {
-            return (
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Icon
-                  name="search"
-                  color="black"
-                  containerStyle={{margin: 10}}
-                />
-                <Icon name="shopping-cart" color="black" />
-              </View>
-            );
-          }}
-        />
         <ScrollView style={styles.Container}>
           <View>
             <SliderBox images={this.state.images} />
@@ -92,7 +78,10 @@ export default class Categories extends Component {
               if (index % 2 == 0) {
                 return (
                   <Row>
-                    <Col>
+                    <Col
+                      onPress={() => {
+                        this.props.navigation.navigate('Product');
+                      }}>
                       <CategorieItem
                         text={item.name}
                         image={
@@ -130,6 +119,14 @@ export default class Categories extends Component {
     );
   }
 }
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: Categories,
+  },
+  Product: {
+    screen: Products,
+  },
+});
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
@@ -141,3 +138,5 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 0 : -30,
   },
 });
+const AppContainer = createAppContainer(AppNavigator);
+export default AppContainer;

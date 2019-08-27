@@ -3,72 +3,114 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  Alert,
   View,
   Text,
   StatusBar,
+  Image,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
+import AppIntroSlider from 'react-native-app-intro-slider';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showRealApp: false,
+    };
+  }
+
   componentDidMount() {
+    // SplashScreen.hide();
     setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
   }
-  render() {
+  _renderItem = item => {
+    console.log(item.item.title);
     return (
       <Fragment>
-        <Text>Hello</Text>
+        <View
+          style={{
+            flex: 6,
+          }}>
+          <Image style={styles.images} source={item.item.image} />
+        </View>
+        <View style={{flex: 4}}>
+          <View style={{flex: 2, justifyContent: 'center'}}>
+            <Text style={styles.title}>{item.item.title}</Text>
+            <Text style={styles.description}>{item.item.text}</Text>
+          </View>
+          <View style={{flex: 1}} />
+        </View>
       </Fragment>
     );
+  };
+
+  _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({showRealApp: true});
+  };
+
+  render() {
+    if (this.state.showRealApp)
+      return (
+        <View>
+          <Text>asdaSAKDFBSKDABFKHKSADBFLDSBAsd</Text>
+        </View>
+      );
+    else {
+      return (
+        <AppIntroSlider
+          renderItem={this._renderItem}
+          slides={slides}
+          dotStyle={{borderWidth: 1}}
+          activeDotStyle={{
+            backgroundColor: 'rgba(255,102,102, 1)',
+            borderWidth: 1,
+          }}
+          onDone={this._onDone}
+          buttonTextStyle={{color: 'rgba(255,102,102, 1)'}}
+        />
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  pagination: {
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 3,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  images: {width: null, height: null, resizeMode: 'contain', flex: 1},
+  title: {fontSize: 18, textAlign: 'center', fontWeight: 'bold'},
+  description: {fontSize: 14, textAlign: 'center'},
 });
+const slides = [
+  {
+    key: 'somethun',
+    title: 'Title1',
+    text:
+      "I'm already out of descriptions Lorem ipsum bla bla bla Description Say something cool Lorem ipsum bla bla bla Lorem ipsum bla bla bla Description Say ",
+    image: require('./assets/3.png'),
+  },
+  {
+    key: 'somethun-dos',
+    title: 'Title 2',
+    text:
+      "I'm already out of descriptions Lorem ipsum bla bla bla Description Say something cool Lorem ipsum bla bla bla Lorem ipsum bla bla bla Description Say ",
+    image: require('./assets/1.png'),
+  },
+  {
+    key: 'somethun1',
+    title: 'Rocket guy',
+    text:
+      "I'm already out of descriptions Lorem ipsum bla bla bla Description Say something cool Lorem ipsum bla bla bla Lorem ipsum bla bla bla Description Say ",
+    image: require('./assets/2.png'),
+  },
+];
 
 export default App;

@@ -1,9 +1,9 @@
 import React, {Fragment, Component} from 'react';
+import Categories from './app/categories';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  Alert,
   View,
   Text,
   StatusBar,
@@ -55,12 +55,7 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.showRealApp)
-      return (
-        <View>
-          <Text>asdaSAKDFBSKDABFKHKSADBFLDSBAsd</Text>
-        </View>
-      );
+    if (this.state.showRealApp) return <Categories />;
     else {
       return (
         <AppIntroSlider

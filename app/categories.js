@@ -11,11 +11,11 @@ import {
 import {Header, Icon} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import Categorie from './models/Categorie';
 import CategorieItem from './CategorieItem';
-import Product from './models/Product';
 import Products from './products';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import ProductItem from './productItem';
+import Singleproduct from './singleproduct';
 
 class Categories extends React.Component {
   static navigationOptions = {
@@ -29,7 +29,6 @@ class Categories extends React.Component {
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
-          // backgroundColor: 'red',
           margin: 1,
         }}>
         <Icon name="search" color="black" containerStyle={{margin: 6}} />
@@ -52,7 +51,15 @@ class Categories extends React.Component {
       CategorieItems: [],
     };
   }
+  navigatetoproduct = item => {
+    if (item.name == 'Vegetables')
+      item.category_img =
+        'https://img1.mashed.com/img/uploads/2017/07/vegetables.jpg';
 
+    this.props.navigation.navigate('Product', {
+      categoie: item,
+    });
+  };
   async componentDidMount() {
     await fetch('https://5bcce576cf2e850013874767.mockapi.io/task/categories')
       .then(result => {
@@ -80,7 +87,7 @@ class Categories extends React.Component {
                   <Row>
                     <Col
                       onPress={() => {
-                        this.props.navigation.navigate('Product');
+                        this.navigatetoproduct(item);
                       }}>
                       <CategorieItem
                         text={item.name}
@@ -91,7 +98,10 @@ class Categories extends React.Component {
                         }
                       />
                     </Col>
-                    <Col>
+                    <Col
+                      onPress={() => {
+                        this.navigatetoproduct(arr[index + 1]);
+                      }}>
                       <CategorieItem
                         text={arr[index + 1].name}
                         image={arr[index + 1].category_img}
@@ -125,6 +135,9 @@ const AppNavigator = createStackNavigator({
   },
   Product: {
     screen: Products,
+  },
+  SingleProduct: {
+    screen: Singleproduct,
   },
 });
 const styles = StyleSheet.create({

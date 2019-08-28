@@ -4,6 +4,37 @@ import {Icon, ButtonGroup} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import ProductItem from './productItem';
+const styles = StyleSheet.create({
+  headerRight: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 1,
+  },
+  buttonGroupContainer: {
+    flex: 1,
+    borderWidth: 0,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    marginLeft: 0,
+    marginBottom: 0,
+    marginTop: 0,
+  },
+  selectedButton: {
+    backgroundColor: 'white',
+    borderBottomColor: '#ff6666',
+    borderBottomWidth: 1,
+  },
+  buttonGroupBorder: {borderWidth: 0, borderStyle: null},
+  imageContainer: {flex: 3, alignItems: 'center', justifyContent: 'center'},
+  footerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#ff6666',
+  },
+  footerItem: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+});
 
 export default class Products extends Component {
   static navigationOptions = ({navigation}) => {
@@ -16,14 +47,7 @@ export default class Products extends Component {
         </Text>
       ),
       headerRight: (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 1,
-          }}>
+        <View style={styles.headerRight}>
           <Icon
             name="search"
             color="white"
@@ -46,7 +70,6 @@ export default class Products extends Component {
     console.log(this.params.category_img);
     this.state = {
       selectedIndex: 2,
-      products: [],
     };
   }
 
@@ -65,7 +88,7 @@ export default class Products extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <View style={{flex: 3, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.imageContainer}>
           <Image
             source={{
               uri: this.params.category_img,
@@ -122,19 +145,12 @@ export default class Products extends Component {
           </ScrollView>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            backgroundColor: '#ff6666',
-          }}>
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.footerContainer}>
+          <View style={styles.footerItem}>
             <Text style={{color: 'white'}}>Sort by</Text>
           </View>
 
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.footerItem}>
             <Text style={{color: 'white'}}>Filter</Text>
           </View>
         </View>
@@ -142,21 +158,3 @@ export default class Products extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  buttonGroupContainer: {
-    flex: 1,
-    borderWidth: 0,
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 1,
-    marginLeft: 0,
-    marginBottom: 0,
-    marginTop: 0,
-  },
-  selectedButton: {
-    backgroundColor: 'white',
-    borderBottomColor: '#ff6666',
-    borderBottomWidth: 1,
-  },
-  buttonGroupBorder: {borderWidth: 0, borderStyle: null},
-});

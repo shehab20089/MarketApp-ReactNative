@@ -24,7 +24,6 @@ export default class ProductItem extends Component {
             flex: 5,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'red',
           }}>
           <Image
             style={{width: '100%', height: '100%'}}

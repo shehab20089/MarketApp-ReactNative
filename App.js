@@ -49,12 +49,12 @@ class App extends Component {
   };
 
   _onDone = () => {
-    // User finished the introduction. Show real app through
-    // navigation or simply by controlling state
+    //when finshing navigating in the intro screens
     this.setState({showRealApp: true});
   };
 
   render() {
+    //first i will check if the user scaned all the intro screens if so then i will show him the home screen
     if (this.state.showRealApp) return <AppContainer />;
     else {
       return (
@@ -62,10 +62,7 @@ class App extends Component {
           renderItem={this._renderItem}
           slides={slides}
           dotStyle={{borderWidth: 1}}
-          activeDotStyle={{
-            backgroundColor: 'rgba(255,102,102, 1)',
-            borderWidth: 1,
-          }}
+          activeDotStyle={styles.activeDot}
           onDone={this._onDone}
           buttonTextStyle={{color: 'rgba(255,102,102, 1)'}}
         />
@@ -79,6 +76,10 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: 'black',
     borderWidth: 3,
+  },
+  activeDot: {
+    backgroundColor: 'rgba(255,102,102, 1)',
+    borderWidth: 1,
   },
   images: {width: null, height: null, resizeMode: 'contain', flex: 1},
   title: {fontSize: 18, textAlign: 'center', fontWeight: 'bold'},

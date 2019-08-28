@@ -16,30 +16,26 @@ import Products from './products';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProductItem from './productItem';
 import Singleproduct from './singleproduct';
+const styles = StyleSheet.create({
+  headerRight: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 1,
+  },
+  Container: {
+    flex: 1,
+  },
+  SliderBox: {flex: 20},
+  headerContainer: {
+    backgroundColor: 'white',
+    //to fix the react native elemntes lib header bug in android
+    marginTop: Platform.OS === 'ios' ? 0 : -30,
+  },
+});
 
 class Categories extends React.Component {
-  static navigationOptions = {
-    headerTitle: (
-      <Icon name="menu" color="black" containerStyle={{margin: 10}} />
-    ),
-    headerRight: (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: 1,
-        }}>
-        <Icon name="search" color="black" containerStyle={{margin: 6}} />
-        <Icon
-          name="shopping-cart"
-          color="black"
-          containerStyle={{margin: 10}}
-        />
-      </View>
-    ),
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -72,6 +68,21 @@ class Categories extends React.Component {
       });
     console.log(this.state.CategorieItems);
   }
+  static navigationOptions = {
+    headerTitle: (
+      <Icon name="menu" color="black" containerStyle={{margin: 10}} />
+    ),
+    headerRight: (
+      <View style={styles.headerRight}>
+        <Icon name="search" color="black" containerStyle={{margin: 6}} />
+        <Icon
+          name="shopping-cart"
+          color="black"
+          containerStyle={{margin: 10}}
+        />
+      </View>
+    ),
+  };
 
   render() {
     return (
@@ -130,6 +141,7 @@ class Categories extends React.Component {
   }
 }
 const AppNavigator = createStackNavigator({
+  //add all the screens i want to navigate in a stack based nav
   Home: {
     screen: Categories,
   },
@@ -140,16 +152,6 @@ const AppNavigator = createStackNavigator({
     screen: Singleproduct,
   },
 });
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-  },
-  SliderBox: {flex: 20},
-  headerContainer: {
-    backgroundColor: 'white',
-    //to fix the react native elemntes lib header bug in android
-    marginTop: Platform.OS === 'ios' ? 0 : -30,
-  },
-});
+
 const AppContainer = createAppContainer(AppNavigator);
 export default AppContainer;
